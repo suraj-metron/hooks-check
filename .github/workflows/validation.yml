@@ -32,13 +32,13 @@ jobs:
         run: |
           mkdir output
           echo "---------------------------PyLint Report---------------------------">> output/python_check.txt
-          pylint ./ >> output/python_check.txt
+          pylint ./src >> output/python_check.txt
       - name: Analysing the code with bandit
         id: bandit
         continue-on-error: true
         run: |
           echo "---------------------------Bandit Report---------------------------">> output/python_check.txt
-          bandit -r ./ -v >> output/python_check.txt
+          bandit -r ./src -v >> output/python_check.txt
       - name: Security check report artifacts
         uses: actions/upload-artifact@v1
         # if: failure()
