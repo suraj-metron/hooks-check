@@ -1,0 +1,16 @@
+#!/bin/sh
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+python3 lint.py -p ../temp/src
+
+pylint_response=$?
+
+if [ "$pylint_response" = "1" ]; then
+  echo "Pylint Check Failed. Please fix the Pylint issues"
+  exit 1
+fi
+
+if [ "$branch" = "master" ]; then
+  echo "You can't commit directly to master branch"
+  exit 1
+fi

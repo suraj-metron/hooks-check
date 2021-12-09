@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# exit on errors
+set -e
+
+#
+# Bootstraps a development environment.
+#
+# This includes:
+# * install pre-commit hooks
+# * install pylint
+
+
+HOOKS_DIR="${PWD}/.hooks"
+GIT_HOOKS_DIR="${PWD}/.git/hooks"
+
+if [ ! -e "${GIT_HOOKS_DIR}/pre-commit" ]; then
+    echo "Installing 'pre-commit' hooks"
+    ln -s "${HOOKS_DIR}/pre-commit" "${GIT_HOOKS_DIR}/pre-commit"
+    chmod +x "${GIT_HOOKS_DIR}/pre-commit"
+else
+    echo "Skipping install of pre-commit hook as it already exists."
+    echo "If you want to re-install: 'rm ${GIT_HOOKS_DIR}/pre-commit' and then run this script again."
+fi
+
+echo "======================="
+
+pip install pip install pylint==2.11.1
